@@ -1,58 +1,251 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
-        <meta charset="UTF-8">
-        <title></title>
-        <link rel="stylesheet" href="css/font-icons.css">
-        <link rel="stylesheet" href="css/iuapmobile.um.css">
-        <link rel="stylesheet" href="css/user.css"/>
-        <script src="js/Frameworks/iuapmobile.frameworks.core.js"></script>
-        <script src="js/summer.js"></script>
-        <script src="js/jquery.min.js"></script>
-        <script src="js/Frameworks/iuapmobile.frameworks.ui.js"></script>
-        <script src="js/user.js"></script>
-    </head>
-
-    <body>
-        <div class="um-page" id="index">
-            <div id="main" class="um-content">
-
-                <div class="um-header um-header-personal">
-                    <p class="tc mt15">
-                        <img class="um-circle" height=60 width=60 src="./img/user.png" alt="...">
-                    </p>
-                    <p class="tc  um-white">
-                        张三
-                    </p>
-                    <p class="tc um-white"></p>
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/font-icons.css">
+    <link rel="stylesheet" href="css/iuapmobile.um.css">
+    <link rel="stylesheet" href="css/user.css"/>
+    <script src="js/Frameworks/iuapmobile.frameworks.core.js"></script>
+    <script src="js/summer.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/Frameworks/iuapmobile.frameworks.ui.js"></script>
+    <script src="js/doT.js"></script>
+    <script src="js/user.js"></script>
+    <script type="text/x-dot-template" id="addresstpl">
+        <ul class="address-item-container">
+            {{~it.list:value:index}}
+            <li class="um-listview-row address-item">
+                <div class="address-header clearfix">
+                    <div class="recipter-name fl">{{=value.name}}</div>
+                    <div class="recipter-tel fr">{{=value.tel}}</div>
                 </div>
-
-            </div>
-
-            <div class="um-footer">
-                <div class="um-tabbar-foot">
-                    <a  href="index.html" class="um-footerbar-item"> <i class="ti-home f20"></i>
-                    <div class="um-tabbar-item-text">
-                        首页
-                    </div> </a>
-                    <a  href="information.html" class="um-footerbar-item"> <i class="ti-comments f20"></i>
-                    <div class="um-tabbar-item-text">
-                        消息中心
-                    </div> </a>
-                    <a  href="purchase.html" class="um-footerbar-item "> <i class="ti-truck f20"></i>
-                    <div class="um-tabbar-item-text">
-                        采购管理
-                    </div> </a>
-                    <a  href="javascript:;" class="um-footerbar-item active"> <i class="ti-user f20"></i>
-                    <div class="um-tabbar-item-text">
-                        我
-                    </div> </a>
+                <div class="address-body">
+                    {{=value.address}}
                 </div>
-            </div>
-        </div>
+                <div class="address-footer clearfix">
+                    {{? value.type==1}}
+                    <label class="um-check-inline fl">
+                        <input name="um-checkbox-inline" type="checkbox"  checked>
+                        <span class="um-icon-checkbox um-css3-vc"></span>
+                        <span class="um-black ml5">默认地址</span>
+                    </label>
+                    {{?? value.type==0}}
+                    <label class="um-check-inline fl">
+                        <input name="um-checkbox-inline" type="checkbox"  >
+                        <span class="um-icon-checkbox um-css3-vc"></span>
+                        <span class="um-black ml5">设为默认</span>
+                    </label>
+                    {{?}}
+                    <div class="address-edit-container fr">
+                        <span class="address-edit"><i class="ti-pencil-alt mr5"></i>编辑</span>
+                        <span class="address-delete"><i class="ti-trash mr5"></i>删除</span>
+                    </div>
+                </div>
+            </li>
+            {{~}}
+        </ul>
+    </script>
+    <script type="text/x-dot-template" id="invoicetpl">
+        <ul class="address-item-container">
+            {{~it.list:value:index}}
+            <li class="um-listview-row invoice-item">
+                <div class="invoice-body">
+                    {{=value.company}}
+                </div>
+                <div class="invoice-footer clearfix">
+                    {{? value.type==1}}
+                    <label class="um-check-inline fl">
+                        <input name="um-checkbox-inline" type="checkbox"  checked>
+                        <span class="um-icon-checkbox um-css3-vc"></span>
+                        <span class="um-black ml5">默认</span>
+                    </label>
+                    {{?? value.type==0}}
+                    <label class="um-check-inline fl">
+                        <input name="um-checkbox-inline" type="checkbox">
+                        <span class="um-icon-checkbox um-css3-vc"></span>
+                        <span class="um-black ml5">设为默认</span>
+                    </label>
+                    {{?}}
+                    <div class="invoice-edit-container fr">
+                        <span class="invoice-edit"><i class="ti-pencil-alt mr5"></i>编辑</span>
+                        <span class="invoice-delete"><i class="ti-trash mr5"></i>删除</span>
+                    </div>
+                </div>
+            </li>
+            {{~}}
+        </ul>
+    </script>
+</head>
+<body>
+<div class="um-page" id="index">
+    <div id="main" class="um-content">
+        <div class="um-header-personal">
+            <p class="tc pt15">
+                <img class="um-circle" height=60 width=60 src="./img/user.png" alt="...">
+            </p>
 
-        </div>
+            <p class="tc  um-white pt10">
+                张三
+            </p>
 
-    </body>
+            <p class="tc um-white"></p>
+        </div>
+        <ul class="um-list">
+            <li>
+                <a href="#address" class="btn" data-transition="drop">收货地址</a>
+            </li>
+            <li>
+                <a href="#invoice" class="btn" data-transition="slideup">发票抬头</a>
+            </li>
+            <li>
+                <a href="#password" class="btn" data-transition="scale_down_up">密码修改</a>
+            </li>
+        </ul>
+        
+        <button class="btn user-signOut">退出</button>
+
+    </div>
+    <div class="um-footer">
+        <div class="um-tabbar-foot">
+            <a href="index.html" class="um-footerbar-item"> <i class="ti-home f20"></i>
+
+                <div class="um-tabbar-item-text">
+                    首页
+                </div>
+            </a>
+            <a href="information.html" class="um-footerbar-item"> <i class="ti-comments f20"></i>
+
+                <div class="um-tabbar-item-text">
+                    消息中心
+                </div>
+            </a>
+            <a href="purchase.html" class="um-footerbar-item "> <i class="ti-truck f20"></i>
+
+                <div class="um-tabbar-item-text">
+                    采购管理
+                </div>
+            </a>
+            <a href="javascript:;" class="um-footerbar-item active"> <i class="ti-user f20"></i>
+
+                <div class="um-tabbar-item-text">
+                    我
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="um-page" id="address">
+    <div class="um-header">
+        <a href="#" class="um-back">返回</a>
+        <h3>收货地址管理</h3>
+    </div>
+    <div class="um-content">
+
+    </div>
+    <div class="um-footer">
+    
+    <button class="btn bg-btn">新增收货地址</button>
+
+    </div>
+</div>
+<div class="um-page" id="invoice">
+    <div class="um-header">
+        <a href="#" class="um-back">返回</a>
+        <h3>发票抬头管理</h3>
+    </div>
+    <div class="um-content">
+
+    </div>
+    <div class="um-footer">
+        <button class="btn bg-btn">新增发票抬头</button>
+    </div>
+</div>
+<div class="um-page" id="password">
+    <div class="um-header">
+        <a href="#" class="um-back">返回</a>
+        <h3>密码管理</h3>
+    </div>
+    <div class="um-content">
+        <ul class="um-list um-list-change">
+            <li>
+                <div class="um-list-item">
+                    <div class="um-list-item-inner">
+                        <div class="um-list-item-left">
+                            原密码：
+                        </div>
+                        <div class="um-list-item-right">
+                            <input type="password" class="form-control" placeholder="输入原密码">
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="um-list-item">
+                    <div class="um-list-item-inner">
+                        <div class="um-list-item-left">
+                            新密码：
+                        </div>
+                        <div class="um-list-item-right">
+                            <input type="password" class="form-control" placeholder="输入新密码">
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="um-list-item">
+                    <div class="um-list-item-inner">
+                        <div class="um-list-item-left">
+                            确认密码：
+                        </div>
+                        <div class="um-list-item-right">
+                            <input type="password" class="form-control" placeholder="再次输入新密码">
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="um-footer">
+        <button class="btn bg-btn">确认</button>
+    </div>
+</div>
+</div>
+
+</body>
+<script>
+    $(function () {
+        var addressArray=[{
+            "name":'张三',
+            "tel":'1888888888',
+            'address':'北京海淀区北清路68号用友软件园',
+            "type":1,//1 默认收货地址 0 收货地址
+        },{
+            "name":'李四',
+            "tel":'16666666666',
+            'address':'北京海淀区北清路68号用友软件园',
+            "type":0,//1 默认收货地址 0 收货地址
+        },{
+            "name":'王五',
+            "tel":'16666666666',
+            'address':'北京海淀区北清路68号用友软件园',
+            "type":0,//1 默认收货地址 0 收货地址
+        }];
+        var invoiceArray=[{
+            "company":'用友网络科技股份有限公司',
+            "type":1//1 默认收货地址 0 收货地址
+        },{
+            "company":'用友科技',
+            "type":0//1 默认收货地址 0 收货地址
+        }]
+        var addressData = {list: addressArray};
+        var addressText = doT.template($("#addresstpl").text());
+        $("#address .um-content").html(addressText(addressData));
+
+        var invoiceData = {list: invoiceArray};
+        var invoiceText = doT.template($("#invoicetpl").text());
+        $("#invoice .um-content").html(invoiceText(invoiceData));
+    });
+</script>
 </html>
