@@ -6,46 +6,216 @@
     <title></title>
     <link rel="stylesheet" href="css/font-icons.css">
     <link rel="stylesheet" href="css/iuapmobile.um.css">
+    <link rel="stylesheet" href="css/information.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/iuapmobile.um.listview.css">
     <script src="js/Frameworks/iuapmobile.frameworks.core.js"></script>
     <script src="js/summer.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/Frameworks/iuapmobile.frameworks.ui.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/doT.js"></script>
+    <script src="js/information.js"></script>
+    <script type="text/x-dot-template" id="message">
+        <div class="um-listview-wrap">
+            <ul class="um-list um-no-active">
+                {{~it.list:value:index }}
+                <li class="um-listview-row">
+                    <a href="#" class="um-list-item um-swipe-action um-no-icon">
+                        <div class="um-list-item-media msg-info">
+                            <img alt="" src={{=value.img}} width=50>
+                        </div>
+                        <div class="um-list-item-inner">
+                            <div class="um-list-item-body">
+                                <h4 class="um-media-heading fb f16 um-text-overflow">{{=value.type}}</h4>
+
+                                <p class="um-gray f14 um-text-overflow">{{=value.lastMsg}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {{~}}
+            </ul>
+        </div>
+    </script>
+    <script type="text/x-dot-template" id="waiting">
+        <ul class="waiting-container">
+            {{~it.list:value:index}}
+            <li class="waiting-item">
+                <div class="waiting-head clearfix">
+                    <div class="fl">{{=value.company}}</div>
+                    <div class="buyer-status fr">{{=value.buyerStatus}}</div>
+                </div>
+
+                <div class="waiting-body">
+                    {{~value.goods:item:key}}
+                    <div class="waiting-product">
+                        <img src={{=item.img}} alt="" style="width:50px;"/>
+                        <div class="product-info">
+                            <p class="product-name">{{=item.name}}</p>
+                            <p class="product-color">颜色：{{=item.color}}</p>
+                        </div>
+                    </div>
+                    {{~}}
+
+                </div>
+
+                <div class="waiting-footer">
+                    {{? value.waitingStatus=='待确认订单' || value.waitingStatus=='待发货'}}
+                    <div class="waiting-status orange">{{=value.waitingStatus}}</div>
+                    {{?? value.waitingStatus=='待开票'}}
+                    <div class="waiting-status green">{{=value.waitingStatus}}</div>
+                    {{?}}
+                </div>
+            </li>
+            {{~}}
+        </ul>
+</script>
 </head>
 
 <body>
 <div class="um-page" id="index">
-    <div id="header" class="um-header">
-        <a href="#" class="um-back">返回</a>
-        <h3>消息中心</h3>
-        <a href="#" class="um-header-right ti-plus f20"></a>
-    </div>
+    <div id="main" class="um-content">
+        <div class="um-input-search">
+            <input type="search" class="form-control" placeholder="搜索">
+            <span class="um-input-cancle">取消</span>
+        </div>
 
-    <div id="main" class="um-content p15">
+        <ul class="um-tabbar um-tabbar-underline info-container">
+            <li class="active" data-tar='.wait'><a>待办(<span>4</span>)</a></li>
+            <li data-tar='.message'><a>消息(<span>4</span>)</a></li>
+        </ul>
+        <div class="Artical   um-box um-direction-v">
+            <div class="wait active  um-bf1">
+                <!-- <div class="waiting-product">
+                                        <img src="img/org3.png" alt="" style="width:50px;"/>
+                                        <div class="product-info">
+                                            <p class="product-name">金联有限鼠标</p>
+                                            <p class="product-color">颜色：黑</p>
+                                        </div>
+                                    </div>-->
+
+
+            </div>
+            <div class="message  um-bf1">
+
+
+            </div>
+        </div>
 
     </div>
 
     <div class="um-footer">
         <div class="um-tabbar-foot">
-            <a  href="index.html" class="um-footerbar-item"> <i class="ti-home f20"></i>
+            <a href="index.html" class="um-footerbar-item"> <i class="ti-home f20"></i>
+
                 <div class="um-tabbar-item-text">
                     首页
-                </div> </a>
-            <a  href="javascript:;" class="um-footerbar-item active"> <i class="ti-comments f20"></i>
+                </div>
+            </a>
+            <a href="javascript:;" class="um-footerbar-item active"> <i class="ti-comments f20"></i>
+
                 <div class="um-tabbar-item-text">
                     消息中心
-                </div> </a>
-            <a  href="purchase.html" class="um-footerbar-item"> <i class="ti-truck f20"></i>
+                </div>
+            </a>
+            <a href="purchase.html" class="um-footerbar-item"> <i class="ti-truck f20"></i>
+
                 <div class="um-tabbar-item-text">
                     采购管理
-                </div> </a>
-            <a  href="user.html" class="um-footerbar-item"> <i class="ti-user f20"></i>
+                </div>
+            </a>
+            <a href="user.html" class="um-footerbar-item"> <i class="ti-user f20"></i>
+
                 <div class="um-tabbar-item-text">
                     我
-                </div> </a>
+                </div>
+            </a>
         </div>
     </div>
 </div>
+
+
+<script>
+    $(function () {
+        var messageArray = [{
+            "type": "企业公告",
+            "img": "./img/org1.png",
+            "lastMsg": "关于加强销售订单及时发货的通知",
+        }, {
+            "type": "企业公告",
+            "img": "./img/org2.png",
+            "lastMsg": "商品-联想E430即将下架通知",
+        }, {
+            "type": "卖家签收通知",
+            "img": "./img/org3.png",
+            "lastMsg": "用友网络商品联想E430客户已签收",
+        }, {
+            "type": "企业公告",
+            "img": "./img/org4.png",
+            "lastMsg": "关于加强销售订单及时发货的通知",
+        }];
+        var waitingArray=[{
+            "company":'用友网络',
+            "buyerStatus":'买家以确认',
+            "waitingStatus":'待确认订单',
+            "goods":[{
+                "img":'img/org1.png',
+                "name":'联想电脑E430',
+                "color":'黑'
+            },{
+                "img":'img/org2.png',
+                "name":'联想电脑E430',
+                "color":'黑'
+             }]
+            },{
+            "company":'用友北分',
+            "buyerStatus":'买家以确认',
+            "waitingStatus":'待发货',
+            "goods":[{
+                "img":'img/org1.png',
+                "name":'联想电脑E430',
+                "color":'黑'
+            },{
+                "img":'img/org2.png',
+                "name":'联想电脑E430',
+                "color":'黑'
+            }]
+            },{
+            "company":'用友网络',
+            "buyerStatus":'买家对账',
+            "waitingStatus":'待开票',
+            "goods":[{
+                "img":'img/org1.png',
+                "name":'联想电脑E430',
+                "color":'黑'
+            },{
+                "img":'img/org2.png',
+                "name":'联想电脑E430',
+                "color":'黑'
+            }]
+            },{
+            "company":'用友网络',
+            "buyerStatus":'买家以确认',
+            "waitingStatus":'待确认订单',
+            "goods":[{
+                "img":'img/org1.png',
+                "name":'联想电脑E430',
+                "color":'黑'
+            },{
+                "img":'img/org2.png',
+                "name":'联想电脑E430',
+                "color":'黑'
+            }]
+        }]
+        var messageData = {list: messageArray};
+        var evalText = doT.template($("#message").text());
+        $(".message").html(evalText(messageData));
+
+
+        var waitingData = {list: waitingArray};
+        var waitingText = doT.template($("#waiting").text());
+        $(".wait").html(waitingText(waitingData));
+    });
+</script>
 
 </body>
 </html>
