@@ -7,189 +7,204 @@
     <link rel="stylesheet" href="css/font-icons.css">
     <link rel="stylesheet" href="css/iuapmobile.um.css">
     <link rel="stylesheet" href="css/index.css"/>
-        <link rel="stylesheet" type="text/css" href="./css/islider.css">
-        <style>
-        	.iSlider-wrapper {
-        		height: 150px;
-        	}
-        </style>
+    <link rel="stylesheet" type="text/css" href="./css/islider.css">
+    <style>
+        .iSlider-wrapper {
+            height: 150px;
+        }
+    </style>
 
     <script src="js/Frameworks/iuapmobile.frameworks.core.js"></script>
     <script src="js/summer.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/Frameworks/iuapmobile.frameworks.ui.js"></script>
     <script src="js/index.js"></script>
-        <script type="text/javascript" src="./js/islider.js"></script>
-        <script>
-        	$(function() {
-        		var list = [
-        			{
-        				content: "./img/g1.jpg"
-        			}, 
-        			{
-        				content: "./img/g2.jpg"
-        			}, 
-        			{
-        				content: "./img/g3.jpg"
-        			}
-        		];
-        		var islider = new iSlider({
-        			type: 'pic',
-        			data: list,
-        			dom: document.getElementById("iSlider-wrapper"),
-        			isLooping: true,
-        			animateType: 'default',
-        			isAutoplay: true,
-        			animateTime: 800
-        		});
-        		islider.addDot();
-        	})
-        </script>
+    <script type="text/javascript" src="./js/islider.js"></script>
+    <script>
+        $(function () {
+            var list = [
+                {
+                    content: "./img/g1.jpg"
+                },
+                {
+                    content: "./img/g2.jpg"
+                },
+                {
+                    content: "./img/g3.jpg"
+                }
+            ];
+            var islider = new iSlider({
+                type: 'pic',
+                data: list,
+                dom: document.getElementById("iSlider-wrapper"),
+                isLooping: true,
+                animateType: 'default',
+                isAutoplay: true,
+                animateTime: 800
+            });
+            islider.addDot();
+        })
+    </script>
 
 </head>
 
 <body>
 <div class="um-page" id="index">
-       <div id="main" class="um-content">
-      <div class="um-row"><div id="iSlider-wrapper" class="iSlider-wrapper"></div></div>
-        
+    <div id="main" class="um-content">
+        <div class="um-row">
+            <div id="iSlider-wrapper" class="iSlider-wrapper"></div>
+        </div>
+        <a href="#classify" class="home-classify" data-transition='drop'>
+            <i class="ti-list f20"></i>
+
+            <div class="um-tabbar-item-text">
+                类目
+            </div>
+        </a>
+        <a href="information.html" class="home-info">
+            <i class="ti-email f20"></i>
+
+            <div class="um-tabbar-item-text">
+                消息
+            </div>
+        </a>
+
         <div class="um-input-search">
-            <input type="search" class="form-control" placeholder="search">
+            <input type="search" class="form-control" placeholder="请输入搜索内容">
             <span class="um-input-cancle">取消</span>
         </div>
-         
-         <div class="um-grid">
+        <div class="um-grid header-nav">
             <div class="um-grid-row tc">
                 <div>
                     <a href="#" class="um-circle um-black">
                         <img src="./img/mt_food.png" width=40 class="um-img-responsive" alt="">
-                        <div class="f12 mt5">美食</div>
+
+                        <div class="f12 mt5">超市化</div>
                     </a>
                 </div>
                 <div>
                     <a href="#" class="um-circle um-black">
                         <img src="./img/mt_mv.png" width=40 class="um-img-responsive" alt="">
-                        <div  class="f12 mt5">电影</div>
+
+                        <div class="f12 mt5">询报价</div>
                     </a>
                 </div>
                 <div>
                     <a href="#" class="um-circle um-black">
                         <img src="./img/mt_hotal.png" width=40 class="um-img-responsive" alt="">
-                        <div  class="f12 mt5">酒店</div>
+
+                        <div class="f12 mt5">招投标</div>
                     </a>
                 </div>
                 <div>
                     <a href="#" class="um-circle um-black">
                         <img src="./img/mt_ktv.png" width=40 class="um-img-responsive" alt="">
-                        <div  class="f12 mt5">KTV</div>
+
+                        <div class="f12 mt5">在线竞价</div>
                     </a>
                 </div>
                 <div>
                     <a href="#" class="um-circle um-black">
                         <img src="./img/mt_ktv.png" width=40 class="um-img-responsive" alt="">
-                        <div  class="f12 mt5">KTV</div>
+
+                        <div class="f12 mt5">我的订单</div>
                     </a>
                 </div>
-            </div>
-         </div>
-    <div class="um-label um-box-justify um-label-change">
-    	<div>商品分类</div>
-    	<div>
-    		<span class="um-gray">更多</span><i class="ti-angle-right um-red"></i>
-    	</div>
-    </div>
-    
-    <div class="um-grid">
-    	<div class="um-grid-row tc">
-    		<div>
-    			<a href="#" class="um-circle um-black">
-    			<div class="f18 mt5">美食</div>
-    				<img src="./img/mt_food.png" class="um-img-responsive" alt="">
-    			</a>
-    		</div>
-    		<div>
-    			<a href="#" class="um-circle um-black">
-    			<div  class="f18 mt5">电影</div>
-    				<img src="./img/mt_mv.png" class="um-img-responsive" alt="">
-    			</a>
-    		</div>
-    		<div>
-    			<a href="#" class="um-circle um-black">
-    			<div  class="f18 mt5">酒店</div>
-    				<img src="./img/mt_hotal.png"  class="um-img-responsive" alt="">
-    				
-    			</a>
-    		</div>
-    	</div>
-    	<!-- 第二行 -->
-    	<div class="um-grid-row tc">
-    		<div>
-    			<a href="#" class="um-circle um-black">
-                    <div class="f18 mt5">今日新单</div>
-    				<img src="./img/mt_new.png"  class="um-img-responsive" alt="">
-
-    			</a>
-    		</div>
-    		<div>
-    			<a href="#" class="um-circle um-black">
-                    <div  class="f18 mt5">代金券</div>
-    				<img src="./img/mt_money.png"  class="um-img-responsive" alt="">
-
-    			</a>
-    		</div>
-    		<div>
-    			<a href="#" class="um-circle um-black">
-                    <div  class="f18 mt5">周边游</div>
-    				<img src="./img/mt_you.png"  class="um-img-responsive" alt="">
-
-    			</a>
-    		</div>
-    	</div>
-        <div class="um-grid-row tc">
-            <div>
-                <a href="#" class="um-circle um-black">
-                    <div class="f18 mt5">今日新单</div>
-                    <img src="./img/mt_new.png"  class="um-img-responsive" alt="">
-
-                </a>
-            </div>
-            <div>
-                <a href="#" class="um-circle um-black">
-                    <div  class="f18 mt5">代金券</div>
-                    <img src="./img/mt_money.png"  class="um-img-responsive" alt="">
-
-                </a>
-            </div>
-            <div>
-                <a href="#" class="um-circle um-black">
-                    <div  class="f18 mt5">周边游</div>
-                    <img src="./img/mt_you.png"  class="um-img-responsive" alt="">
-
-                </a>
             </div>
         </div>
-    </div>
+        <div class="um-label um-box-justify um-label-change">
+            <div>商品分类</div>
+            <div>
+                <span class="um-gray">更多</span><i class="ti-angle-right um-red"></i>
+            </div>
+        </div>
 
+        <div class="um-grid">
+            <div class="um-grid-row tc">
+                <div class="classify-item">
+                    <a href="#" class="um-circle um-black">
+                        <div class="f18 mt5">化工类</div>
+                        <img src="./img/mt_food.png" class="um-img-responsive" alt="">
+                    </a>
+                </div>
+                <div class="classify-item">
+                    <a href="#" class="um-circle um-black">
+                        <div class="f18 mt5">汽车配件</div>
+                        <img src="./img/mt_mv.png" class="um-img-responsive" alt="">
+                    </a>
+                </div>
+                <div class="classify-item">
+                    <a href="#" class="um-circle um-black">
+                        <div class="f18 mt5">安防保险</div>
+                        <img src="./img/mt_hotal.png" class="um-img-responsive" alt="">
+
+                    </a>
+                </div>
+            </div>
+            <!-- 第二行 -->
+            <div class="um-grid-row tc">
+                <div class="classify-item">
+                    <a href="#" class="um-circle um-black">
+                        <div class="f18 mt5">五金建材</div>
+                        <img src="./img/mt_new.png" class="um-img-responsive" alt="">
+
+                    </a>
+                </div>
+                <div class="classify-item">
+                    <a href="#" class="um-circle um-black">
+                        <div class="f18 mt5">机械设备</div>
+                        <img src="./img/mt_money.png" class="um-img-responsive" alt="">
+
+                    </a>
+                </div>
+                <div class="classify-item">
+                    <a href="#" class="um-circle um-black">
+                        <div class="f18 mt5">电子元器件</div>
+                        <img src="./img/mt_you.png" class="um-img-responsive" alt="">
+
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="um-footer">
         <div class="um-tabbar-foot">
-            <a  href="javascript:;" class="um-footerbar-item active"> <i class="ti-home f20"></i>
+            <a href="javascript:;" class="um-footerbar-item active"> <i class="ti-home f20"></i>
+
                 <div class="um-tabbar-item-text">
                     首页
-                </div> </a>
-            <a  href="information.html" class="um-footerbar-item"> <i class="ti-comments f20"></i>
+                </div>
+            </a>
+            <a href="information.html" class="um-footerbar-item"> <i class="ti-comments f20"></i>
+
                 <div class="um-tabbar-item-text">
                     消息中心
-                </div> </a>
-            <a  href="purchase.html" class="um-footerbar-item "> <i class="ti-truck f20"></i>
+                </div>
+            </a>
+            <a href="purchase.html" class="um-footerbar-item "> <i class="ti-truck f20"></i>
+
                 <div class="um-tabbar-item-text">
                     采购管理
-                </div> </a>
-            <a  href="user.html" class="um-footerbar-item"> <i class="ti-user f20"></i>
+                </div>
+            </a>
+            <a href="user.html" class="um-footerbar-item"> <i class="ti-user f20"></i>
+
                 <div class="um-tabbar-item-text">
                     我
-                </div> </a>
+                </div>
+            </a>
         </div>
+    </div>
+</div>
+<div class="um-page" id="classify">
+    <div class="um-header">
+        <a href="#" class="um-back">返回</a>
+
+        <h3>分类</h3>
+        <a href="#" class="um-header-right ti-plus f20"></a>
+    </div>
+    <div class="um-content">
+
     </div>
 </div>
 
