@@ -79,9 +79,9 @@
 
 		<script src="../js/jquery.min.js" ></script>
 		<script src="../js/summer.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
 		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
 		<script src="../js/doT.js"></script>
-        <script type="text/javascript" src="../js/knockout.js"></script>
         <script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listview.js"></script>
 	</head>
 	<body>
@@ -97,14 +97,14 @@
                 	<li data-tar='.product'><a>待我确认(2)</a></li>
                 	<li data-tar='.game'><a>已确认</a></li>
                 </ul>
-                <div class="Artical um-box um-direction-v">        
+                <div class="Artical um-box um-direction-v" >        
                 	<div class="news active  um-bf1">
-                		<div class="p15 um-listview-wrap">
+                		<div class="p15 um-listview-wrap" id="listView">
                 			<ul class="um-list um-no-active" id="artical">
                 				<script type="text/x-dot-template" id="articalTemp">
                 					{{ for(var i = 0;i<it.length;i++){ }}
                 					<li class="um-listview-row">
-			                			<a href="#details" class="um-list-item um-swipe-action um-no-icon"  data-transition="um">
+			                			<a href="#details" class="um-list-item um-swipe-action um-no-icon" data-transition="um">
 			                				<div class="um-list-item-inner">
 			                					<div class="um-list-item-body">
 			                						<p class="f16">
@@ -127,12 +127,12 @@
                 		
                 	</div>
                 	<div class="product um-bf1">
-                		<div class="p15">
+                		<div class="p15 um-listview-wrap" id="listView2">
                 			<ul class="um-list um-no-active" id="product">
                 				<script type="text/x-dot-template" id="productTemp">
                 					{{ for(var i = 0;i<it.length;i++){ }}
                 					<li class="um-listview-row">
-			                			<a href="#details" class="um-list-item um-swipe-action um-no-icon"  data-transition="um">
+			                			<a href="#details" class="um-list-item um-swipe-action um-no-icon" data-transition="um">
 			                				<div class="um-list-item-inner">
 			                					<div class="um-list-item-body">
 			                						<p class="f16">
@@ -155,12 +155,12 @@
                 		</div>
                 	</div>
                 	<div class="game um-bf1">
-                		<div class="p15">
+                		<div class="p15 um-listview-wrap" id="listView3">
                 			<ul class="um-list um-no-active" id="game">
                 				<script type="text/x-dot-template" id="gameTemp">
                 					{{ for(var i = 0;i<it.length;i++){ }}
                 					<li class="um-listview-row">
-                						<a href="#details" class="um-list-item um-swipe-action um-no-icon"  data-transition="um">
+                						<a href="#details" class="um-list-item um-swipe-action um-no-icon" data-transition="um">
 			                				<div class="um-list-item-inner">
 			                					<div class="um-list-item-body">
 			                						<p class="f16">
@@ -325,7 +325,6 @@
 
 			</div>
 		</div>
-		<div class=""></div>
         <script>
         	$(function () {			 
         		 /*导航更换js*/
@@ -339,20 +338,20 @@
         			data:[
         				{
         					number : 'CD20160301001',
-        					firm : '得力办公北京公司',
-        					goods : '办公桌，办公椅，桌椅，板凳',
-        					loan : '3000.00'
+        					firm : '得力办公北京公司1',
+        					goods : '办公桌1，办公椅1，桌椅1，板凳1',
+        					loan : '1000.00'
         				},
         				{
-        					number : 'CD20160301001',
-        					firm : '得力办公北京公司',
-        					goods : '办公桌，办公椅，桌椅，板凳',
-        					loan : '3000.00'
+        					number : 'CD20160301002',
+        					firm : '得力办公北京公司2',
+        					goods : '办公桌2，办公椅2，桌椅2，板凳2',
+        					loan : '2000.00'
         				},
         				{
-        					number : 'CD20160301001',
-        					firm : '得力办公北京公司',
-        					goods : '办公桌，办公椅，桌椅，板凳',
+        					number : 'CD20160301003',
+        					firm : '得力办公北京公司3',
+        					goods : '办公桌3，办公椅3，桌椅3，板凳3',
         					loan : '3000.00'
         				}
         			]
@@ -413,6 +412,30 @@
         		var gameText = doT.template($("#gameTemp").text());
         		$("#game").html(gameText(gameData.data));
         		
+        		
+        		var listview = UM.listview("#listView");
+        		listview.on("itemClick", function(sender, args) {
+        			//这里可以处理行点击事件，参数sender即为当前列表实例对象，args对象有2个属性，即rowIndex(行索引)和$target(目标行的jquery对象)
+        			console.log("1您点击了列表第" + (args.rowIndex + 1) + "行！");
+        			console.log(articalData.data[args.rowIndex])
+        			alert("单号为："+articalData.data[args.rowIndex].number + "\n"
+        				+"供应商："+articalData.data[args.rowIndex].firm+"\n"
+        				+"办公用品" + articalData.data[args.rowIndex].goods + "\n"
+        				+"金额" + articalData.data[args.rowIndex].loan
+        			);
+        		});
+        		
+        		var listview2 = UM.listview("#listView2");
+        		listview2.on("itemClick", function(sender, args) {
+        			//这里可以处理行点击事件，参数sender即为当前列表实例对象，args对象有2个属性，即rowIndex(行索引)和$target(目标行的jquery对象)
+        			alert("2您点击了列表第" + (args.rowIndex + 1) + "行！");
+        		});
+        		
+        		var listview3 = UM.listview("#listView3");
+        		listview3.on("itemClick", function(sender, args) {
+        			//这里可以处理行点击事件，参数sender即为当前列表实例对象，args对象有2个属性，即rowIndex(行索引)和$target(目标行的jquery对象)
+        			alert("3您点击了列表第" + (args.rowIndex + 1) + "行！");
+        		});
         		$(".reminded").on("click",function(){
         			UM.alert({
 		                title: '提醒成功',
@@ -429,7 +452,18 @@
         			return false;
         		});
         		$(".introduced").on("click",function(){
-        			
+        			UM.confirm({
+		                title: '确认发布',
+		                text: '您确定要发布吗？',
+		                btnText: ["取消", "确定"],
+		                overlay: true,
+		                ok: function () {
+		                    alert("发布中")
+		                },
+		                cancle: function () {
+		                    alert("取消");
+		                }
+		            });
         			return false;
         		});
         	});
