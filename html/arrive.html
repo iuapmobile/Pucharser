@@ -28,10 +28,15 @@
         		-webkit-flex: 1;
         		flex: 1;
         	}
+        	.um-container{
+        		margin:0;
+        		background:#ffffff;
+        	}
         </style>
 
 		<script src="../js/jquery.min.js" ></script>
 		<script src="../js/summer.js" ></script>
+		<script src="../js/doT.js" ></script>
 		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
 	</head>
 	<body>
@@ -46,50 +51,45 @@
                 	<li class="active" data-tar='.news'><a>待收货</a></li>
                 	<li data-tar='.product'><a>已收货</a></li>
                 </ul>
-                <div class="Artical   um-box um-direction-v">        
-                	<div class="news active  um-bf1">
-                		<div class="p15">
-                			<ul class="um-list um-list-static">
-	                			<li class="um-listview-row">
-	                				<a href="#">
+                <div class="Artical um-box um-direction-v">        
+                	<div class="news active um-bf1">
+                		<div class="pl15 pr15">
+                			<ul class="um-list um-list-static" id="artical">
+                				<script type="text/x-dot-template" id="articalTemp">
+	                				{{ for(var i = 0; i<it.length; i++){}}
+		                			<li class="um-listview-row go-details" data-index= {{=i}}>
 		                				<p class="f16">
+		                					{{ if(it[i].type==0){ }}
 		                					<span class="um-bgc-blue">待收货</span>
-		                					<a href="#" class="um-blue">CD20160301001</a>
+		                					{{ }else if(it[i].type==1){ }}
+		                					<span class="um-bgc-blue">已收货</span>
+		                					{{ }else{ }}
+		                					<span class="um-bgc-blue"></span>
+		                					{{ } }}
+		                					<a href="#" class="um-blue">{{=it[i].number}}</a>
 		                				</p>
 		                				<p class="f16">商品：办公桌，办公椅，桌椅，板凳</p>
 		                				<p class="f16">力办公北京公司</p>
 		                				<p class="clearfix f16">
 		                					<span class="fl pt10 pb10">计划要货日期：2016-04-04</span>
-		                					<button class="fr um-btn btn-inline ml10">退货</button>
-		                					<button class="fr um-btn btn-inline">收货</button>
+		                					<button class="fr um-btn btn-inline ml10 tuihuo">退货</button>
+		                					<button class="fr um-btn btn-inline shouhuo">收货</button>
 		                				</p>
-	                				</a>
-	                			</li>
-	                			<li class="um-listview-row">
-	                				<a href="#">
-		                				<p class="f16">
-		                					<span class="um-bgc-blue">待收货</span>
-		                					<a href="#" class="um-blue">CD20160301001</a>
-		                				</p>
-		                				<p class="f16">商品：办公桌，办公椅，桌椅，板凳</p>
-		                				<p class="f16">力办公北京公司</p>
-		                				<p class="clearfix f16">
-		                					<span class="fl pt10 pb10">计划要货日期：2016-04-04</span>
-		                					<button class="fr um-btn btn-inline ml10">退货</button>
-		                					<button class="fr um-btn btn-inline">收货</button>
-		                				</p>
-	                				</a>
-	                			</li>
+		                			</li>
+		                			{{ } }}
+	                			</script>
 	                		</ul>
                 		</div>
                 	</div>
-                	<div class="product  um-bf1">
-                		<div class="p15">
-                			<ul class="um-list um-list-static">
-	                			<li class="um-listview-row">
-	                				<a href="#">
+                	<div class="product um-bf1">
+                		<div class="pl15 pr15">
+                			<ul class="um-list um-list-static" id="Received">
+                				<script type="text/x-dot-template" id="ReceivedTemp">
+	                				{{ for(var i = 0; i<it.length; i++){}}
+	                				
+		                			<li class="um-listview-row go-details" data-index= {{=i}}>
 		                				<p class="f16">
-		                					<a href="#" class="um-blue">CD20160301001</a>
+		                					<a href="#" class="um-blue">{{=it[i].number}}</a>
 		                				</p>
 		                				<p class="f16">商品：办公桌，办公椅，桌椅，板凳</p>
 		                				<p class="f16">
@@ -98,22 +98,9 @@
 		                				</p>
 		                				<p class="f16">收货仓库：密云原料库</p>
 		                				<p class="f16">收货日期：2016-04-04</p>
-	                				</a>
-	                			</li>
-	                			<li class="um-listview-row">
-	                				<a href="#">
-		                				<p class="f16">
-		                					<a href="#" class="um-blue">CD20160301001</a>
-		                				</p>
-		                				<p class="f16">商品：办公桌，办公椅，桌椅，板凳</p>
-		                				<p class="f16">
-		                					<span>应收数量   100</span>
-		                					<span class="ml20">实收数量   100</span>
-		                				</p>
-		                				<p class="f16">收货仓库：密云原料库</p>
-		                				<p class="f16">收货日期：2016-04-04</p>
-	                				</a>
-	                			</li>
+	                				</li>
+		                			{{ } }}
+	                			</script>
 	                		</ul>
                 		</div>
                 	</div>
@@ -121,7 +108,161 @@
 
 			</div>
 		</div>
-
+		<div class="um-page" id="ReceivedDetails">
+			<div class="um-header">
+				<a href="#" class="um-back"></a>
+				<h3>采购到货计划管理</h3>
+			</div>
+			<div class="um-content">
+			<div class="um-container">
+                <ul class="um-list">
+                	<li class="um-list-item">
+                		<div class="um-list-item-inner">
+                			<div class="um-list-item-left">
+                				到货单编号：
+                			</div>
+                			<div class="um-list-item-right">
+                				<p class="tl">DH2015110703</p>
+                			</div>
+                		</div>
+                	</li>
+                	<li class="um-list-item">
+                		<div class="um-list-item-inner">
+                			<div class="um-list-item-left">
+                				供应商：
+                			</div>
+                			<div class="um-list-item-right">
+                				<p class="tl">得力办公北京公司</p>
+                		</div>
+                	</li>
+                	<li class="um-list-item">
+                		<div class="um-list-item-inner">
+                			<div class="um-list-item-left">
+                				发货地址：
+                			</div>
+                			<div class="um-list-item-right">
+                				<p class="tl">北京亦庄69号</p>
+                			</div>
+                		</div>
+                	</li>
+                </ul>
+				
+                <ul class="um-list mt10">
+                    <li>
+                        <div class="um-list-item">
+                            <div class="um-list-item-inner">
+                                <div class="um-list-item-left">运输方式：</div>
+                                <div class="um-list-item-right">
+                                    <p class="tl">汽车</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="um-list-item">
+                            <div class="um-list-item-inner">
+                                <div class="um-list-item-left">车牌号：</div>
+                                <div class="um-list-item-right">
+                                    <p class="tl">京A8765</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="um-list-item">
+                            <div class="um-list-item-inner">
+                                <div class="um-list-item-left"> 联系人：</div>
+                                <div class="um-list-item-right">
+                                    <p class="tl">李丽</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="um-list-item">
+                            <div class="um-list-item-inner">
+                                <div class="um-list-item-left">联系方式：</div>
+                                <div class="um-list-item-right">
+                                    <p class="tl">139100000222</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="um-list-item">
+                            <div class="um-list-item-inner">
+                                <div class="um-list-item-left" style="-webkit-box-align: start;-webkit-align-self: flex-start;">
+                                    备注：
+                                </div>
+                                <div class="um-list-item-right">
+                                    <textarea name="" id="" style="height:80px;padding: 10px 0;" class="form-control" placeholder="请在此输入..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+				<ul class="um-list mt10">
+            		<li class="um-listview-row">
+            			<a href="#" class="um-list-item um-swipe-action um-no-icon">
+            				<div class="um-list-item-inner">
+            					<div class="um-list-item-body">
+            						<h4 class="um-media-heading f14 um-text-overflow">
+            							电脑，联想 E430，5G内存，500G硬盘。500G硬盘。500G硬盘。
+            						</h4>
+            						<p class="f14 um-text-overflow mb5">
+            							计划到货日期：2016-04-04
+            						</p>
+            						<p class="um-red f14 um-text-overflow">
+            							<span>￥2456.00x100台</span>
+            							<span>￥245600.00</span>
+            						</p>
+            					</div>
+            				</div> 
+            			</a>
+            		</li>
+            		<li class="um-listview-row">
+            			<a href="#" class="um-list-item um-swipe-action um-no-icon">
+            				<div class="um-list-item-inner">
+            					<div class="um-list-item-body">
+            						<h4 class="um-media-heading f14 um-text-overflow">
+            							电脑，联想 E430，5G内存，500G硬盘。500G硬盘。500G硬盘。
+            						</h4>
+            						<p class="f14 um-text-overflow mb5">
+            							计划到货日期：2016-04-04
+            						</p>
+            						<p class="um-red f14 um-text-overflow">
+            							<span>￥2456.00x100台</span>
+            							<span>￥245600.00</span>
+            						</p>
+            					</div>
+            				</div> 
+            			</a>
+            		</li>
+            		<li class="um-listview-row">
+            			<a href="#" class="um-list-item um-swipe-action um-no-icon">
+            				<div class="um-list-item-inner">
+            					<div class="um-list-item-body">
+            						<h4 class="um-media-heading f14 um-text-overflow">
+            							电脑，联想 E430，5G内存，500G硬盘。500G硬盘。500G硬盘。
+            						</h4>
+            						<p class="f14 um-text-overflow mb5">
+            							计划到货日期：2016-04-04
+            						</p>
+            						<p class="um-red f14 um-text-overflow">
+            							<span>￥2456.00x100台</span>
+            							<span>￥245600.00</span>
+            						</p>
+            					</div>
+            				</div> 
+            			</a>
+            		</li>
+            	</ul>
+            	<div class="tr">
+            		订单总金额：<span class="um-red">￥736800.00</span>
+            	</div>
+            </div>		
+			</div>
+		</div>
         <script>
         	$(function () {			 
         		 /*导航更换js*/
@@ -130,6 +271,82 @@
         			var tar=$(this).attr('data-tar');
         			$(tar).addClass('active').siblings('.active').removeClass('active');
         		}); 
+        		//待供应商确认
+        		var articalData = {
+        			data:[
+        				{
+        					type : 0,
+        					number : 'CD20160301001',
+        					firm : '得力办公北京公司',
+        					goods : '办公桌，办公椅，桌椅，板凳',
+        					loan : '3000.00'
+        				},
+        				{
+        					type : 1,
+        					number : 'CD20160301001',
+        					firm : '得力办公北京公司',
+        					goods : '办公桌，办公椅，桌椅，板凳',
+        					loan : '3000.00'
+        				},
+        				{
+        					type : 2,
+        					number : 'CD20160301001',
+        					firm : '得力办公北京公司',
+        					goods : '办公桌，办公椅，桌椅，板凳',
+        					loan : '3000.00'
+        				}
+        			]
+        		};
+        		var articalText = doT.template($("#articalTemp").text());
+        		$("#artical").html(articalText(articalData.data));
+        		
+        		var ReceivedText = doT.template($("#ReceivedTemp").text());
+        		$("#Received").html(ReceivedText(articalData.data));
+        		
+        		
+        		$('.go-details').on('click', function (e) {
+		            var index=$(this).attr('data-index');
+		            console.log(index);
+		            //var storageDetail=storageArr[index];
+		            //var detailText=doT.template($('#detailTml').text());
+		           // $("#detail").html(detailText(storageDetail));
+		            UM.page.changePage({
+		                target: '#ReceivedDetails',
+		                isReverse: 'true',
+		                transition: 'scale_down_up'
+		            })
+		        });
+		        
+		        $(".tuihuo").on("click",function(){
+		        	UM.confirm({
+		                title: '友情提示：',
+		                text: '您确定要退货吗？',
+		                btnText: ["取消", "确定"],
+		                overlay: true,
+		                ok: function () {
+		                    alert("退货")
+		                },
+		                cancle: function () {
+		                    alert("取消");
+		                }
+		            });
+		            return false;
+		        });
+		        $(".shouhuo").on("click",function(){
+		        	UM.confirm({
+		                title: '友情提示：',
+		                text: '您确定要收货吗？',
+		                btnText: ["取消", "确定"],
+		                overlay: true,
+		                ok: function () {
+		                    alert("收货")
+		                },
+		                cancle: function () {
+		                    alert("取消");
+		                }
+		            });
+		            return false;
+		        });
         	});
         </script>
 	</body>

@@ -6,6 +6,28 @@
 		<title>采购订单管理</title>
 		<link rel="stylesheet" href="../css/font-icons.css">
 		<link rel="stylesheet" href="../css/iuapmobile.um.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/iuapmobile.um.listview.css">
+
+        <style>
+        	.msg-info {
+        		position: relative;
+        	}
+        	.msg-info .um-badge {
+        		position: absolute;
+        		right: -10px;
+        		font-size: 12px;
+        	}
+        	.msg-header {
+        		width: 40px;
+        		height: 40px;
+        		line-height: 40px;
+        		background: blue;
+        		border-radius: 50%;
+        		text-align: center;
+        		color: white;
+        	}
+        </style>
+
         <style>
         	.um-tabbar{
         		border-bottom:1px solid #C2C2C2;
@@ -35,11 +57,32 @@
         		-webkit-flex: 1;
         		flex: 1;
         	}
+        	.um-list a{
+        		display:block;
+        	}
+        	.um-list .um-list-item-right{
+        		text-align:left;
+        	}
+        	.btn-box{
+        		width:80px;
+        		text-align:right;
+        		position:relative;
+        		height:100%;
+        		padding: 9px 0;
+        	}
+        	.btn-box .um-btn{
+        		display:inline-block;
+        		width:auto;
+        		padding:4px 12px;
+        	}
         </style>
 
 		<script src="../js/jquery.min.js" ></script>
 		<script src="../js/summer.js" ></script>
+		<script src="../js/Frameworks/iuapmobile.frameworks.core.js" ></script>
 		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
+		<script src="../js/doT.js"></script>
+        <script type="text/javascript" src="../js/Frameworks/iuapmobile.frameworks.listview.js"></script>
 	</head>
 	<body>
 		<div class="um-page" id="index">
@@ -54,103 +97,87 @@
                 	<li data-tar='.product'><a>待我确认(2)</a></li>
                 	<li data-tar='.game'><a>已确认</a></li>
                 </ul>
-                <div class="Artical um-box um-direction-v">        
+                <div class="Artical um-box um-direction-v" >        
                 	<div class="news active  um-bf1">
-                		<div class="p15">
-                			<ul class="um-list um-list-static">
-	                			<li class="um-listview-row">
-		                			<a href="#">
-		                				<p class="f16">
-		                					<a href="#" class="um-blue">CD20160301001</a>
-		                					<span>得力办公北京公司</span>
-		                				</p>
-		                				<p class="f16">商品：办公桌，办公椅，桌椅，板凳</p>
-		                				<p class="clearfix f16">
-		                					<span class="fl pt10 pb10">金额：￥300,000.00</span>
-		                					<button class="fr um-btn btn-inline">提醒供应商</button>
-		                				</p>
-	                				</a>
-	                			</li>
-	                			<li class="um-listview-row">
-	                				<a href="#">
-		                				<p class="f16">
-		                					<a href="#" class="um-blue">CD20160301001</a>
-		                					<span>得力办公北京公司</span>
-		                				</p>
-		                				<p class="f16">商品：办公桌，办公椅，桌椅，板凳</p>
-		                				<p class="clearfix f16">
-		                					<span class="fl pt10 pb10">金额：￥300,000.00</span>
-		                					<button class="fr um-btn btn-inline">提醒供应商</button>
-		                				</p>
-	                				</a>
-	                			</li>
+                		<div class="p15 um-listview-wrap" id="listView">
+                			<ul class="um-list um-no-active" id="artical">
+                				<script type="text/x-dot-template" id="articalTemp">
+                					{{ for(var i = 0;i<it.length;i++){ }}
+                					<li class="um-listview-row">
+			                			<a href="#details" class="um-list-item um-swipe-action um-no-icon" data-transition="um">
+			                				<div class="um-list-item-inner">
+			                					<div class="um-list-item-body">
+			                						<p class="f16">
+					                					<span class="um-blue">{{=it[i].number}}</span>
+					                					<span>{{=it[i].firm}}</span>
+					                				</p>
+					                				<p class="f16">商品：{{=it[i].goods}}</p>
+					                				<p class="clearfix f16">
+					                					<span class="fl pt10 pb10">金额：￥{{=it[i].loan}}</span>
+					                					<button class="fr um-btn btn-inline reminded">提醒供应商</button>
+					                				</p>
+			                					</div>
+			                				</div> 
+			                			</a>
+			                		</li>
+		                			{{ } }}
+                				</script>
 	                		</ul>
                 		</div>
                 		
                 	</div>
                 	<div class="product um-bf1">
-                		<div class="p15">
-                			<ul class="um-list um-list-static">
-	                			<li class="um-listview-row">
-	                				<a href="#">
-		                				<p class="f16">
-		                					<a href="#" class="um-blue">CD20160301001</a>
-		                					<span>得力办公北京公司</span>
-		                				</p>
-		                				<p class="f16">商品：办公桌，办公椅，桌椅，板凳</p>
-		                				<p class="clearfix f16">
-		                					<span class="fl pt10 pb10">金额：￥300,000.00</span>
-		                					<button class="fr um-btn btn-inline ml10">发布</button>
-		                					<button class="fr um-btn btn-inline">修改</button>
-		                				</p>
-	                				</a>
-	                			</li>
-	                			<li class="um-listview-row">
-	                				<a href="#">
-		                				<p class="f16">
-		                					<a href="#" class="um-blue">CD20160301001</a>
-		                					<span>得力办公北京公司</span>
-		                				</p>
-		                				<p class="f16">商品：办公桌，办公椅，桌椅，板凳</p>
-		                				<p class="clearfix f16">
-		                					<span class="fl pt10 pb10">金额：￥300,000.00</span>
-		                					<button class="fr um-btn btn-inline ml10">发布</button>
-		                					<button class="fr um-btn btn-inline">修改</button>
-		                				</p>
-	                				</a>
-	                			</li>
+                		<div class="p15 um-listview-wrap" id="listView2">
+                			<ul class="um-list um-no-active" id="product">
+                				<script type="text/x-dot-template" id="productTemp">
+                					{{ for(var i = 0;i<it.length;i++){ }}
+                					<li class="um-listview-row">
+			                			<a href="#details" class="um-list-item um-swipe-action um-no-icon" data-transition="um">
+			                				<div class="um-list-item-inner">
+			                					<div class="um-list-item-body">
+			                						<p class="f16">
+					                					<span class="um-blue">{{=it[i].number}}</span>
+					                					<span>{{=it[i].firm}}</span>
+					                				</p>
+					                				<p class="f16">商品：{{=it[i].goods}}</p>
+					                				<p class="clearfix f16">
+					                					<span class="fl pt10 pb10">金额：￥{{=it[i].loan}}</span>
+					                					<button class="fr um-btn btn-inline ml10 introduced">发布</button>
+					                					<button class="fr um-btn btn-inline revisions">修改</button>
+					                				</p>
+			                					</div>
+			                				</div> 
+		                				</a>
+		                			</li>
+		                			{{ } }}
+                				</script>
 	                		</ul>
                 		</div>
                 	</div>
                 	<div class="game um-bf1">
-                		<div class="p15">
-                			<ul class="um-list um-list-static">
-	                			<li class="um-listview-row">
-	                				<a href="#">
-		                				<p class="f16">
-		                					<a href="#" class="um-blue">CD20160301001</a>
-		                					<span>得力办公北京公司</span>
-		                				</p>
-		                				<p class="f16">商品：办公桌，办公椅，桌椅，板凳</p>
-		                				<p class="clearfix f16">
-		                					<span class="fl pt10 pb10">金额：￥300,000.00</span>
-		                					<button class="fr um-btn btn-inline">提醒供应商</button>
-		                				</p>
-	                				</a>
-	                			</li>
-	                			<li class="um-listview-row">
-	                				<a href="#">
-		                				<p class="f16">
-		                					<a href="#" class="um-blue">CD20160301001</a>
-		                					<span>得力办公北京公司</span>
-		                				</p>
-		                				<p class="f16">商品：办公桌，办公椅，桌椅，板凳</p>
-		                				<p class="clearfix f16">
-		                					<span class="fl pt10 pb10">金额：￥300,000.00</span>
-		                					<button class="fr um-btn btn-inline">提醒供应商</button>
-		                				</p>
-	                				</a>
-	                			</li>
+                		<div class="p15 um-listview-wrap" id="listView3">
+                			<ul class="um-list um-no-active" id="game">
+                				<script type="text/x-dot-template" id="gameTemp">
+                					{{ for(var i = 0;i<it.length;i++){ }}
+                					<li class="um-listview-row">
+                						<a href="#details" class="um-list-item um-swipe-action um-no-icon" data-transition="um">
+			                				<div class="um-list-item-inner">
+			                					<div class="um-list-item-body">
+			                						<p class="f16">
+					                					<span class="um-blue">{{=it[i].number}}</span>
+					                					<span>{{=it[i].firm}}</span>
+					                				</p>
+					                				<p class="f16">商品：{{=it[i].goods}}</p>
+					                				<p class="clearfix f16">
+					                					<span class="fl pt10 pb10">金额：￥{{=it[i].loan}}</span>
+					                					<button class="fr um-btn btn-inline reminded">提醒供应商</button>
+					                				</p>
+			                					</div>
+			                				</div> 
+			                			</a>
+		                			</li>
+		                			{{ } }}
+                				</script>
 	                		</ul>
                 		</div>
                 	</div>
@@ -158,7 +185,146 @@
 
 			</div>
 		</div>
+		<div class="um-page" id="details">
+			<div class="um-header">
+				<a href="#" class="um-back"></a>
+				<h3>订单详情</h3>
+			</div>
+			<div class="um-content pl15 pr15">
+                <ul class="um-list">
+                    <li>
+                        <div class="um-list-item">
+                            <div class="um-list-item-inner">
+                                <div class="um-list-item-left">订单编号：</div>
+                                <div class="um-list-item-right">
+                                    CD20151105003
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="um-list-item">
+                            <div class="um-list-item-inner">
+                                <div class="um-list-item-left">
+                                    供应商：
+                                </div>
+                                <div class="um-list-item-right">
+                                    得力办公北京公司
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="um-list-item">
+                            <div class="um-list-item-inner">
+                                <div class="um-list-item-left">
+                                    联系人：
+                                </div>
+                                <div class="um-list-item-right">
+                                    陈宇
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="um-list-item">
+                            <div class="um-list-item-inner">
+                                <div class="um-list-item-left">
+                                    联系电话：
+                                </div>
+                                <div class="um-list-item-right">
+                                    010-876549900
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="um-list-item">
+                            <div class="um-list-item-inner">
+                                <div class="um-list-item-left">
+                                    订单日期：
+                                </div>
+                                <div class="um-list-item-right">
+                                    2016-03-21 
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="um-listview-wrap" id="listview">
+                	
+                	<ul class="um-list um-no-active" data-bind="foreach: data">
+                		<li class="um-listview-row">
+                			<a href="#" class="um-list-item um-swipe-action um-no-icon">
+                				<div class="um-list-item-inner">
+                					<div class="um-list-item-body">
+                						<h4 class="um-media-heading f14 um-text-overflow">
+                							电脑，联想 E430，5G内存，500G硬盘。500G硬盘。500G硬盘。
+                						</h4>
+                						<p class="f14 um-text-overflow mb5">
+                							计划到货日期：2016-04-04
+                						</p>
+                						<p class="um-red f14 um-text-overflow">
+                							<span>￥2456.00x100台</span>
+                							<span>￥245600.00</span>
+                						</p>
+                					</div>
+                					<div class="btn-box">
+                						<button class="um-btn">修改</button>
+                					</div>
+                				</div> 
+                			</a>
+                		</li>
+                		<li class="um-listview-row">
+                			<a href="#" class="um-list-item um-swipe-action um-no-icon">
+                				<div class="um-list-item-inner">
+                					<div class="um-list-item-body">
+                						<h4 class="um-media-heading f14 um-text-overflow">
+                							电脑，联想 E430，5G内存，500G硬盘。500G硬盘。500G硬盘。
+                						</h4>
+                						<p class="f14 um-text-overflow mb5">
+                							计划到货日期：2016-04-04
+                						</p>
+                						<p class="um-red f14 um-text-overflow">
+                							<span>￥2456.00x100台</span>
+                							<span>￥245600.00</span>
+                						</p>
+                					</div>
+                					<div class="btn-box">
+                						<button class="um-btn">修改</button>
+                					</div>
+                				</div> 
+                			</a>
+                		</li>
+                		<li class="um-listview-row">
+                			<a href="#" class="um-list-item um-swipe-action um-no-icon">
+                				<div class="um-list-item-inner">
+                					<div class="um-list-item-body">
+                						<h4 class="um-media-heading f14 um-text-overflow">
+                							电脑，联想 E430，5G内存，500G硬盘。500G硬盘。500G硬盘。
+                						</h4>
+                						<p class="f14 um-text-overflow mb5">
+                							计划到货日期：2016-04-04
+                						</p>
+                						<p class="um-red f14 um-text-overflow">
+                							<span>￥2456.00x100台</span>
+                							<span>￥245600.00</span>
+                						</p>
+                					</div>
+                					<div class="btn-box">
+                						<button class="um-btn">修改</button>
+                					</div>
+                				</div> 
+                			</a>
+                		</li>
+                	</ul>
+                	<div class="tr">
+                		订单总金额：<span class="um-red">￥736800.00</span>
+                	</div>
+                </div>
 
+			</div>
+		</div>
         <script>
         	$(function () {			 
         		 /*导航更换js*/
@@ -167,7 +333,142 @@
         			var tar=$(this).attr('data-tar');
         			$(tar).addClass('active').siblings('.active').removeClass('active');
         		}); 
+        		//待供应商确认
+        		var articalData = {
+        			data:[
+        				{
+        					number : 'CD20160301001',
+        					firm : '得力办公北京公司1',
+        					goods : '办公桌1，办公椅1，桌椅1，板凳1',
+        					loan : '1000.00'
+        				},
+        				{
+        					number : 'CD20160301002',
+        					firm : '得力办公北京公司2',
+        					goods : '办公桌2，办公椅2，桌椅2，板凳2',
+        					loan : '2000.00'
+        				},
+        				{
+        					number : 'CD20160301003',
+        					firm : '得力办公北京公司3',
+        					goods : '办公桌3，办公椅3，桌椅3，板凳3',
+        					loan : '3000.00'
+        				}
+        			]
+        		};
+        		//待我确认
+        		var productData = {
+        			data:[
+        				{
+        					number : 'CD20160301001',
+        					firm : '得力办公北京公司',
+        					goods : '办公桌，办公椅，桌椅，板凳',
+        					loan : '3000.00'
+        				},
+        				{
+        					number : 'CD20160301001',
+        					firm : '得力办公北京公司',
+        					goods : '办公桌，办公椅，桌椅，板凳',
+        					loan : '3000.00'
+        				},
+        				{
+        					number : 'CD20160301001',
+        					firm : '得力办公北京公司',
+        					goods : '办公桌，办公椅，桌椅，板凳',
+        					loan : '3000.00'
+        				}
+        			]
+        		};
+        		//已确认
+        		var gameData = {
+        			data:[
+        				{
+        					number : 'CD20160301001',
+        					firm : '得力办公北京公司',
+        					goods : '办公桌，办公椅，桌椅，板凳',
+        					loan : '3000.00'
+        				},
+        				{
+        					number : 'CD20160301001',
+        					firm : '得力办公北京公司',
+        					goods : '办公桌，办公椅，桌椅，板凳',
+        					loan : '3000.00'
+        				},
+        				{
+        					number : 'CD20160301001',
+        					firm : '得力办公北京公司',
+        					goods : '办公桌，办公椅，桌椅，板凳',
+        					loan : '3000.00'
+        				}
+        			]
+        		};
+        		
+        		var articalText = doT.template($("#articalTemp").text());
+        		$("#artical").html(articalText(articalData.data));
+        		
+        		var productText = doT.template($("#productTemp").text());
+        		$("#product").html(productText(productData.data));
+        		
+        		var gameText = doT.template($("#gameTemp").text());
+        		$("#game").html(gameText(gameData.data));
+        		
+        		
+        		var listview = UM.listview("#listView");
+        		listview.on("itemClick", function(sender, args) {
+        			//这里可以处理行点击事件，参数sender即为当前列表实例对象，args对象有2个属性，即rowIndex(行索引)和$target(目标行的jquery对象)
+        			console.log("1您点击了列表第" + (args.rowIndex + 1) + "行！");
+        			console.log(articalData.data[args.rowIndex])
+        			alert("单号为："+articalData.data[args.rowIndex].number + "\n"
+        				+"供应商："+articalData.data[args.rowIndex].firm+"\n"
+        				+"办公用品" + articalData.data[args.rowIndex].goods + "\n"
+        				+"金额" + articalData.data[args.rowIndex].loan
+        			);
+        		});
+        		
+        		var listview2 = UM.listview("#listView2");
+        		listview2.on("itemClick", function(sender, args) {
+        			//这里可以处理行点击事件，参数sender即为当前列表实例对象，args对象有2个属性，即rowIndex(行索引)和$target(目标行的jquery对象)
+        			alert("2您点击了列表第" + (args.rowIndex + 1) + "行！");
+        		});
+        		
+        		var listview3 = UM.listview("#listView3");
+        		listview3.on("itemClick", function(sender, args) {
+        			//这里可以处理行点击事件，参数sender即为当前列表实例对象，args对象有2个属性，即rowIndex(行索引)和$target(目标行的jquery对象)
+        			alert("3您点击了列表第" + (args.rowIndex + 1) + "行！");
+        		});
+        		$(".reminded").on("click",function(){
+        			UM.alert({
+		                title: '提醒成功',
+		                btnText: ["取消", "确定"],
+		                overlay: true,
+		                ok: function () {
+		                    alert("提醒成功")
+		                }
+		            });
+		            return false;
+        		});
+        		$(".revisions").on("click",function(){
+        		
+        			return false;
+        		});
+        		$(".introduced").on("click",function(){
+        			UM.confirm({
+		                title: '确认发布',
+		                text: '您确定要发布吗？',
+		                btnText: ["取消", "确定"],
+		                overlay: true,
+		                ok: function () {
+		                    alert("发布中")
+		                },
+		                cancle: function () {
+		                    alert("取消");
+		                }
+		            });
+        			return false;
+        		});
         	});
         </script>
+
+        
 	</body>
 </html>
