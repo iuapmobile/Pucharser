@@ -12,26 +12,26 @@
     <script src="../js/Frameworks/iuapmobile.frameworks.ui.js"></script>
     <script src="../js/doT.js"></script>
     <script type="text/x-dot-template" id="storageTml">
-            <ul class="um-list um-list-static">
-                {{~it.list:value:index}}
-                <li class="um-listview-row storage-item" data-index={{=index}}>
-                    <a href="#">
-                        <p class="f16">
-                            <a href="#" class="um-blue">{{=value.storageId}}</a>
-                        </p>
+        <ul class="um-list um-list-static">
+            {{~it.list:value:index}}
+            <li class="um-listview-row storage-item" data-index={{=index}}>
+                <a href="#">
+                    <p class="f16">
+                        <a href="#" class="um-blue">{{=value.storageId}}</a>
+                    </p>
 
-                        <p class="f16">商品：{{=value.info}}</p>
+                    <p class="f16">商品：{{=value.info}}</p>
 
-                        <p class="f16">{{=value.purchasingCom}}</p>
+                    <p class="f16">{{=value.purchasingCom}}</p>
 
-                        <p class="f16">入库日期：{{=value.orderDate}}</p>
-                    </a>
-                </li>
-               {{~}}
-            </ul>
-</script>
+                    <p class="f16">入库日期：{{=value.orderDate}}</p>
+                </a>
+            </li>
+            {{~}}
+        </ul>
+    </script>
     <script type="text/x-dot-template" id="detailTml">
-        {{for (var key in it){ }}
+
         <ul class="um-list um-list-change">
             <li class="um-list-item">
                 <div class="um-list-item-inner">
@@ -39,7 +39,7 @@
                         入库单号：
                     </div>
                     <div class="um-list-item-right">
-                        <div class="form-control tl um-blue f20">RK201603010002</div>
+                        <div class="form-control tl um-blue f20">{{=it['storageId']}}</div>
                     </div>
                 </div>
             </li>
@@ -49,7 +49,7 @@
                         采购公司
                     </div>
                     <div class="um-list-item-right">
-                        <div class="form-control tl">用友网络</div>
+                        <div class="form-control tl">{{=it['purchasingCom']}}</div>
                     </div>
                 </div>
             </li>
@@ -59,7 +59,7 @@
                         入库单日期：
                     </div>
                     <div class="um-list-item-right">
-                        <div class="form-control tl">2016-03-03</div>
+                        <div class="form-control tl">{{=it['orderDate']}}</div>
                     </div>
                 </div>
             </li>
@@ -69,7 +69,7 @@
                         供应商：
                     </div>
                     <div class="um-list-item-right">
-                        <div class="form-control tl">得力办公北京公司</div>
+                        <div class="form-control tl">{{=it['supplier']}}</div>
                     </div>
                 </div>
             </li>
@@ -79,7 +79,7 @@
                         备注：
                     </div>
                     <div class="um-list-item-right">
-                        <div class="form-control tl"></div>
+                        <div class="form-control tl">{{=it['remarks']}}</div>
                     </div>
                 </div>
             </li>
@@ -89,19 +89,20 @@
                         采购退库
                     </div>
                     <div class="um-list-item-right">
-                        <div class="form-control tl">否</div>
+                        <div class="form-control tl">{{=it['isRefund']}}</div>
                     </div>
                 </div>
             </li>
         </ul>
+        {{~it.goods:value:index}}
         <ul class="um-list um-list-change">
             <li class="um-list-item">
                 <div class="um-list-item-inner">
                     <div class="um-list-item-left">
-                        CD20160201001
+                        {{=value.idNumber}}
                     </div>
                     <div class="um-list-item-right">
-                        <div class="form-control tl">办公桌</div>
+                        <div class="form-control tl">{{=value.name}}</div>
                     </div>
                 </div>
             </li>
@@ -111,7 +112,7 @@
                         应收/实收：
                     </div>
                     <div class="um-list-item-right">
-                        <div class="form-control tl">100/150 张</div>
+                        <div class="form-control tl">{{=value.receivables}}/{{=value.paidUp}} 张</div>
                     </div>
                 </div>
             </li>
@@ -121,13 +122,13 @@
                         入库日期：
                     </div>
                     <div class="um-list-item-right">
-                        <div class="form-control tl">2016-02-01</div>
+                        <div class="form-control tl">{{=value.storageDate}}</div>
                     </div>
                 </div>
             </li>
         </ul>
-        {{}}}
-</script>
+        {{~}}
+    </script>
 </head>
 <body>
 <div class="um-page" id="index">
@@ -149,164 +150,71 @@
 <div class="um-page" id="storageDetail">
     <div class="um-header">
         <a href="#" class="um-back"></a>
+
         <h3>采购入库详情</h3>
     </div>
     <div class="um-content">
-        <ul class="um-list um-list-change">
-            <li class="um-list-item">
-                <div class="um-list-item-inner">
-                    <div class="um-list-item-left">
-                        入库单号：
-                    </div>
-                    <div class="um-list-item-right">
-                        <div class="form-control tl um-blue f20">RK201603010002</div>
-                    </div>
-                </div>
-            </li>
-            <li class="um-list-item">
-                <div class="um-list-item-inner">
-                    <div class="um-list-item-left">
-                        采购公司
-                    </div>
-                    <div class="um-list-item-right">
-                        <div class="form-control tl">用友网络</div>
-                    </div>
-                </div>
-            </li>
-            <li class="um-list-item">
-                <div class="um-list-item-inner">
-                    <div class="um-list-item-left">
-                        入库单日期：
-                    </div>
-                    <div class="um-list-item-right">
-                        <div class="form-control tl">2016-03-03</div>
-                    </div>
-                </div>
-            </li>
-            <li class="um-list-item">
-                <div class="um-list-item-inner">
-                    <div class="um-list-item-left">
-                        供应商：
-                    </div>
-                    <div class="um-list-item-right">
-                        <div class="form-control tl">得力办公北京公司</div>
-                    </div>
-                </div>
-            </li>
-            <li class="um-list-item">
-                <div class="um-list-item-inner">
-                    <div class="um-list-item-left">
-                        备注：
-                    </div>
-                    <div class="um-list-item-right">
-                        <div class="form-control tl"></div>
-                    </div>
-                </div>
-            </li>
-            <li class="um-list-item">
-                <div class="um-list-item-inner">
-                    <div class="um-list-item-left">
-                        采购退库
-                    </div>
-                    <div class="um-list-item-right">
-                        <div class="form-control tl">否</div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <ul class="um-list um-list-change">
-            <li class="um-list-item">
-                <div class="um-list-item-inner">
-                    <div class="um-list-item-left">
-                       CD20160201001
-                    </div>
-                    <div class="um-list-item-right">
-                        <div class="form-control tl">办公桌</div>
-                    </div>
-                </div>
-            </li>
-            <li class="um-list-item">
-                <div class="um-list-item-inner">
-                    <div class="um-list-item-left">
-                        应收/实收：
-                    </div>
-                    <div class="um-list-item-right">
-                        <div class="form-control tl">100/150 张</div>
-                    </div>
-                </div>
-            </li>
-            <li class="um-list-item">
-                <div class="um-list-item-inner">
-                    <div class="um-list-item-left">
-                        入库日期：
-                    </div>
-                    <div class="um-list-item-right">
-                        <div class="form-control tl">2016-02-01</div>
-                    </div>
-                </div>
-            </li>
-        </ul>
+
     </div>
 </div>
 </body>
 <script>
     $(function () {
-        var storageArr=[{
-            'storageId':'RK201603010002',/*入库单号*/
-            'orderDate':'2016-03-03',/*入库单日期*/
-            'purchasingCom':'用友网络',/*采购公司*/
-            'supplier':'得力办公北京分公司',/*供应商*/
-            'info':'办公桌 100张；办公椅 10把',
-            'remarks':'',/*备注*/
-            'isRefund':'否',/*采购退库*/
-            'goods':[{
-                'idNumber':'CD20160201001',/*设备编码*/
-                'name':'办公桌',/*设备名称*/
-                'storageDate':'2016-02-01',/*入库日期*/
-                'receivables':'100',/*应收*/
-                'paid-up':'150',/*实收*/
-            },{
-                'idNumber':'CD20160201001',/*设备编码*/
-                'name':'椅子',/*设备名称*/
-                'storageDate':'2016-02-01',/*入库日期*/
-                'receivables':'100',/*应收*/
-                'paid-up':'150',/*实收*/
+        var storageArr = [{
+            'storageId': 'RK201603010002', /*入库单号*/
+            'orderDate': '2016-03-03', /*入库单日期*/
+            'purchasingCom': '用友网络', /*采购公司*/
+            'supplier': '得力办公北京分公司', /*供应商*/
+            'info': '办公桌 100张；办公椅 10把',
+            'remarks': '', /*备注*/
+            'isRefund': '否', /*采购退库*/
+            'goods': [{
+                'idNumber': 'CD20160201001', /*设备编码*/
+                'name': '办公桌', /*设备名称*/
+                'storageDate': '2016-02-01', /*入库日期*/
+                'receivables': '100', /*应收*/
+                'paidUp': '150', /*实收*/
+            }, {
+                'idNumber': 'CD20160201001', /*设备编码*/
+                'name': '椅子', /*设备名称*/
+                'storageDate': '2016-02-01', /*入库日期*/
+                'receivables': '100', /*应收*/
+                'paidUp': '150', /*实收*/
             },]
-        },{
-            'storageId':'RK201603010002',/*入库单号*/
-            'orderDate':'2016-03-03',/*入库单日期*/
-            'purchasingCom':'用友网络',/*采购公司*/
-            'supplier':'得力办公北京分公司',/*供应商*/
-            'info':'办公桌 100张；办公椅 10把',
-            'remarks':'',/*备注*/
-            'isRefund':'否',/*采购退库*/
-            'goods':[{
-                'idNumber':'CD20160201001',/*设备编码*/
-                'name':'办公桌',/*设备名称*/
-                'storageDate':'2016-02-01',/*入库日期*/
-                'receivables':'100',/*应收*/
-                'paid-up':'150',/*实收*/
-            },{
-                'idNumber':'CD20160201001',/*设备编码*/
-                'name':'椅子',/*设备名称*/
-                'storageDate':'2016-02-01',/*入库日期*/
-                'receivables':'100',/*应收*/
-                'paid-up':'150',/*实收*/
+        }, {
+            'storageId': 'RK201603010003', /*入库单号*/
+            'orderDate': '2016-03-03', /*入库单日期*/
+            'purchasingCom': '用友网络', /*采购公司*/
+            'supplier': '得力办公北京分公司', /*供应商*/
+            'info': '办公桌 100张；办公椅 10把',
+            'remarks': '', /*备注*/
+            'isRefund': '否', /*采购退库*/
+            'goods': [{
+                'idNumber': 'CD20160201001', /*设备编码*/
+                'name': '办公桌', /*设备名称*/
+                'storageDate': '2016-02-01', /*入库日期*/
+                'receivables': '100', /*应收*/
+                'paidUp': '150', /*实收*/
+            }, {
+                'idNumber': 'CD20160201001', /*设备编码*/
+                'name': '椅子', /*设备名称*/
+                'storageDate': '2016-02-01', /*入库日期*/
+                'receivables': '100', /*应收*/
+                'paidUp': '150', /*实收*/
             },]
         }];
-        var storageData={list:storageArr};
+        var storageData = {list: storageArr};
         var storageText = doT.template($("#storageTml").text());
         $("#storage").html(storageText(storageData));
         $('#index .um-content').on('click', '.storage-item', function (e) {
-            var index=$(e.currentTarget).attr('data-index');
-            console.log(index);
-            var storageDetail=storageArr[index];
-            var detailText=doT.template($('#detailTml').text());
-            $("#detail").html(detailText(storageDetail));
+            var index = $(e.currentTarget).attr('data-index');
+            var storageDetail = storageArr[index];
+            var detailText = doT.template($('#detailTml').text());
+            $("#storageDetail .um-content").html(detailText(storageDetail));
             UM.page.changePage({
                 target: '#storageDetail',
                 isReverse: 'false',
-                transation: 'drop'
+                transition: 'drop'
             })
         })
     });

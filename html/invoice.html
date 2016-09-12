@@ -1,54 +1,315 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
-		<meta charset="UTF-8">
-		<title>发票查询</title>
-		<link rel="stylesheet" href="../css/font-icons.css">
-		<link rel="stylesheet" href="../css/iuapmobile.um.css"/>
-		<script src="../js/jquery.min.js" ></script>
-		<script src="../js/summer.js" ></script>
-		<script src="../js/Frameworks/iuapmobile.frameworks.ui.js" ></script>
-	</head>
-	<body>
-		<div class="um-page" id="index">
-			<div id="header" class="um-header">
-				<a href="../purchase.html" class="um-back"></a>
-				<h3>发票查询</h3>
-			</div>
-			<div id="main" class="um-content">
-				
-                <div class="um-input-group">
-                	<span class="ti-search"></span>
-                	<input type="search" class="form-control" placeholder="search">
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <meta charset="UTF-8">
+    <title>发票查询</title>
+    <link rel="stylesheet" href="../css/font-icons.css">
+    <link rel="stylesheet" href="../css/iuapmobile.um.css"/>
+    <link rel="stylesheet" href="../css/invoice.css"/>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/summer.js"></script>
+    <script src="../js/Frameworks/iuapmobile.frameworks.ui.js"></script>
+    <script src="../js/doT.js"></script>
+    <script type="text/x-dot-template" id="invoiceTml">
+        <ul class="um-list um-list-static">
+            {{~it.list:value:index}}
+            <li class="um-listview-row invoice-item" data-index={{=index}}>
+                <a href="#">
+                    <p class="f16">
+                        <a href="#" class="um-blue">{{=value.number}}</a>
+                    </p>
+
+                    <p class="f16">采购公司：{{=value.purchasingCom}}</p>
+
+                    <p class="f16">供应商：{{=value.supplier}}</p>
+
+                    <p class="f16">发票日期：{{=value.invoiceDate}}</p>
+
+                    <p class="f16">票到日期：{{=value.receiveDate}}</p>
+                </a>
+            </li>
+            {{~}}
+        </ul>
+    </script>
+    <script type="text/x-dot-template" id="detailTml">
+        <ul class="um-list um-list-change">
+            <li class="um-list-item">
+                <div class="um-list-item-inner">
+                    <div class="um-list-item-left">
+                        发票号：
+                    </div>
+                    <div class="um-list-item-right">
+                        <div class="form-control tl">{{=it['number']}}</div>
+                    </div>
                 </div>
-				<div class="p15">
-					<ul class="um-list um-list-static">
-            			<li class="um-listview-row">
-            				<a href="#">
-	            				<p class="f16">
-	            					<a href="#" class="um-blue">CD20160301001</a>
-	            				</p>
-	            				<p class="f16">采购公司：用友网络股份有限公司</p>
-	            				<p class="f16">供应商：得力办公北京公司</p>
-	            				<p class="f16">发票日期：2016-04-04</p>
-	            				<p class="f16">票到日期：2016-04-04</p>
-            				</a>
-            			</li>
-            			<li class="um-listview-row">
-            				<a href="#">
-	            				<p class="f16">
-	            					<a href="#" class="um-blue">CD20160301001</a>
-	            				</p>
-	            				<p class="f16">采购公司：用友网络股份有限公司</p>
-	            				<p class="f16">供应商：得力办公北京公司</p>
-	            				<p class="f16">发票日期：2016-04-04</p>
-	            				<p class="f16">票到日期：2016-04-04</p>
-            				</a>
-            			</li>
-            		</ul>
-				</div>
-			</div>
-		</div>
-	</body>
+            </li>
+            <li class="um-list-item">
+                <div class="um-list-item-inner">
+                    <div class="um-list-item-left">
+                        付款协议名称：
+                    </div>
+                    <div class="um-list-item-right">
+                        <div class="form-control tl">{{=it['agreement']}}</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="item-container">
+            {{~it.items:value:index}}
+            <li class="um-list-item detail-item" data-bind={{=index}}>
+                <div class="item-ID mt10">{{=value.ID}}</div>
+                <div class="item-goods mt5">{{=value.goods}}</div>
+                <div class="item-total-container clearfix mt5 mb10">
+                    <div class="item-total fl">价税合计：{{=value.total}}</div>
+                    <div class="item-show-more fr"></div>
+                </div>
+            </li>
+            {{~}}
+        </ul>
+    </script>
+    <script type="text/x-dot-template" id="infoTml">
+        {{~it:value:index}}
+        <ul class="um-list  mt10 p10">
+            <li class="um-list-item">
+                <div class="um-list-item-inner">
+                    <div class="um-list-item-left">
+                       {{=value.name}}
+                    </div>
+                    <div class="um-list-item-right">
+                        <div class="form-control tl">{{=value.number}}张</div>
+                    </div>
+                </div>
+            </li>
+            <li class="um-list-item">
+                <div class="um-list-item-inner">
+                    <div class="um-list-item-left">
+                        价税合计：
+                    </div>
+                    <div class="um-list-item-right">
+                        <div class="form-control tl">{{=value.eachTotal}}</div>
+                    </div>
+                </div>
+            </li>
+            <li class="um-list-item">
+                <div class="um-list-item-inner">
+                    <div class="um-list-item-left">
+                        税率：{{=value.rate}}
+                    </div>
+                    <div class="um-list-item-right">
+                        <div class="form-control tl">应税外加</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        {{~}}
+</script>
+</head>
+<body>
+<div class="um-page" id="index">
+    <div id="header" class="um-header">
+        <a href="../purchase.html" class="um-back"></a>
+
+        <h3>发票查询</h3>
+    </div>
+    <div id="main" class="um-content">
+        <div class="um-input-group">
+            <span class="ti-search"></span>
+            <input type="search" class="form-control" placeholder="search">
+        </div>
+        <div class="p15" id="invoice">
+
+        </div>
+    </div>
+</div>
+<div class="um-page" id="invoiceDetail">
+    <div class="um-header">
+        <a href="#" class="um-back">返回</a>
+
+        <h3>发票详情</h3>
+    </div>
+    <div class="um-content p10">
+        <div id="detail">
+
+        </div>
+        <div class="um-shadow">
+            <div class="info-container">
+                <div class="close-btn">×</div>
+                <div id="info">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(function () {
+        var invoiceArr = [{
+            'number': 'CF201603010002', /*编号*/
+            'purchasingCom': '用友网络科技股份有限公司', /*采购公司*/
+            'agreement': '', /*协议*/
+            'supplier': '得力办公北京分公司', /*供应商*/
+            'invoiceDate': '2016-03-03', /*发票日期*/
+            'receiveDate': '2016-03-03', /*票到日期*/
+            'items': [{
+                'ID': 'CD20160201001', /*单项号*/
+                'total': '6000.00', /*单项总价*/
+                'goods': '办公桌 椅子 箱子', /*物品*/
+                'detail': [{
+                    'name': '椅子', /*名称*/
+                    'number': '100', /*数量*/
+                    'eachTotal': '2000.00', /*价格*/
+                    'rate': '17%', /*税率*/
+                }, {
+                    'name': '办公桌',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '箱子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }]
+            }, {
+                'ID': 'CD20160201002',
+                'total': '6000.00', /*单项总价*/
+                'goods': '办公桌 椅子 箱子', /*物品*/
+                'detail': [{
+                    'name': '椅子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '办公桌',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '箱子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }]
+            }, {
+                'ID': 'CD20160201003',
+                'total': '6000.00', /*单项总价*/
+                'goods': '办公桌 椅子 箱子', /*物品*/
+                'detail': [{
+                    'name': '椅子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '办公桌',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '箱子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }]
+            }]
+        }, {
+            'number': 'CF201603010004',
+            'purchasingCom': '用友网络科技股份有限公司',
+            'agreement': '', /*协议*/
+            'supplier': '得力办公北京分公司',
+            'invoiceDate': '2016-03-03',
+            'receiveDate': '2016-03-03',
+            'items': [{
+                'ID': 'CD20160201001',
+                'total': '6000.00', /*单项总价*/
+                'goods': '办公桌 椅子 箱子', /*物品*/
+                'detail': [{
+                    'name': '椅子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '办公桌',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '箱子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }]
+            }, {
+                'ID': 'CD20160201002',
+                'total': '6000.00', /*单项总价*/
+                'goods': '办公桌 椅子 箱子', /*物品*/
+                'detail': [{
+                    'name': '椅子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '办公桌',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '箱子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }]
+            }, {
+                'ID': 'CD20160201003',
+                'total': '6000.00', /*单项总价*/
+                'goods': '办公桌 椅子 箱子', /*物品*/
+                'detail': [{
+                    'name': '椅子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '办公桌',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }, {
+                    'name': '箱子',
+                    'number': '100',
+                    'eachTotal': '2000.00',
+                    'rate': '17%',
+                }]
+            }]
+        }];
+        var invoiceData = {list: invoiceArr};
+        var invoiceText = doT.template($("#invoiceTml").text());
+        $("#invoice").html(invoiceText(invoiceData));
+        var detailDate=null;
+        $('#index .um-content').on('click', '.invoice-item', function (e) {
+            var index = $(e.currentTarget).attr('data-index');
+             detailDate = invoiceArr[index];
+            var detailText = doT.template($("#detailTml").text());
+            $('#detail').html(detailText(detailDate));
+            UM.page.changePage({
+                target: '#invoiceDetail',
+                isReverse: 'false',
+                transition: 'scale_down_up'
+            })
+        });
+        $('#invoiceDetail .um-content').on('click', '.detail-item', function (e) {
+            var index = $(e.currentTarget).attr('data-bind');
+           var items=detailDate['items'];
+            var infoData=items[index].detail;
+            console.log(infoData);
+            var infoText = doT.template($("#infoTml").text());
+            $('#info').html(infoText(infoData));
+            $('.um-shadow').fadeIn('slow');
+        })
+        $('#invoiceDetail .um-content').on('click','.close-btn', function () {
+            $('.um-shadow').fadeOut('slow');
+        })
+    });
+</script>
 </html>
